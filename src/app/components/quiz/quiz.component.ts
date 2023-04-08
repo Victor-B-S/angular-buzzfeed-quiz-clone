@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import quizz_questions from "../../../assets/data/quizz_questions.json"
+import quiz_questions from "../../../assets/data/quiz_questions.json"
 
 @Component({
-  selector: 'app-quizz',
-  templateUrl: './quizz.component.html',
-  styleUrls: ['./quizz.component.css']
+  selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.css']
 })
 
-export class QuizzComponent implements OnInit {
+export class QuizComponent implements OnInit {
 
   title:string = ""
 
@@ -25,11 +25,11 @@ export class QuizzComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if(quizz_questions){
+    if(quiz_questions){
       this.finished = false
-      this.title = quizz_questions.title
+      this.title = quiz_questions.title
 
-      this.questions = quizz_questions.questions
+      this.questions = quiz_questions.questions
       this.questionSelected = this.questions[this.questionIndex]
 
       this.questionIndex = 0
@@ -41,7 +41,7 @@ export class QuizzComponent implements OnInit {
 
   }
 
-  playerChoose(value:string){
+  playerChoice(value:string){
     this.answers.push(value)
     this.nextStep()
 
@@ -55,13 +55,13 @@ export class QuizzComponent implements OnInit {
     }else{
       const finalAnswer:string = await this.checkResult(this.answers)
       this.finished = true
-      this.answerSelected = quizz_questions.results[finalAnswer as keyof typeof quizz_questions.results ]
+      this.answerSelected = quiz_questions.results[finalAnswer as keyof typeof quiz_questions.results ]
     }
   }
 
-  async checkResult(anwsers:string[]){
+  async checkResult(answers:string[]){
 
-    const result = anwsers.reduce((previous, current, i, arr)=>{
+    const result = answers.reduce((previous, current, i, arr)=>{
         if(
           arr.filter(item => item === previous).length >
           arr.filter(item => item === current).length
@@ -75,4 +75,10 @@ export class QuizzComponent implements OnInit {
     return result
   }
 
+  restartQuiz(){
+    this.finished = false
+    this.questionIndex = 0
+    this.answers = []
+    this.questionSelected = this.questions[this.questionIndex]
+  }
 }
