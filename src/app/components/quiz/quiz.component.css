@@ -76,6 +76,10 @@
   align-items: center;
 }
 
+.quiz_results > .btn-option{
+  margin-top: 10px;
+}
+
 @media (min-width: 280px) and (max-width: 320px) {
   .quiz_questions {
     height: 150px;
@@ -83,5 +87,18 @@
   }
   .btn-option {
     font-size: 12px;
+  }
+
+  .quiz_results {
+    text-align: center;
+    height: 300px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .quiz_results > .btn-option {
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
   }
 }
